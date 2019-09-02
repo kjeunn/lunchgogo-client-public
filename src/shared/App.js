@@ -1,13 +1,15 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Home, CreateRoom, VoteRoom } from 'pages';
 
 function App() {
   return (
     <div>
       <Route exact path="/" component={Home} />
-      <Route exact path="/room/create" component={CreateRoom} />
-      <Route exact path="/room/:id" component={VoteRoom} />
+      <Switch>
+        <Route exact path="/room/create" component={CreateRoom} />
+        <Route path="/room/:id" component={VoteRoom} />
+      </Switch>
     </div>
   );
 }
