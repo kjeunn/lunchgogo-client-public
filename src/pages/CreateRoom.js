@@ -19,7 +19,7 @@ class CreateRoom extends React.Component {
       this.setState({
         currentPosition: position.coords,
       });
-    }, () => {
+    }, (error) => {
       // error
       this.setState({
         geoPermisionDenined: true,
@@ -28,7 +28,7 @@ class CreateRoom extends React.Component {
       // getCurrentPosition options
       enableHighAccuracy: false,
       maximumAge: 0,
-      timeout: Infinity,
+      timeout: 10000,
     });
   }
 
@@ -50,12 +50,16 @@ class CreateRoom extends React.Component {
     const { currentPosition } = this.state;
     fetch('http://localhost:5001/room/create', {
       method: 'POST',
-      body: {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         location: {
           latitude: currentPosition.latitude,
           longitude: currentPosition.longitude,
         },
-      },
+      }),
     })
       .then((response) => response.json())
       .then((roomId) => {
