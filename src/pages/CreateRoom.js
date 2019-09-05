@@ -46,6 +46,23 @@ class CreateRoom extends React.Component {
     });
   }
 
+  createRoom() {
+    const { currentPosition } = this.state;
+    fetch('http://localhost:5001/room/create', {
+      method: 'POST',
+      body: {
+        location: {
+          latitude: currentPosition.latitude,
+          longitude: currentPosition.longitude,
+        },
+      },
+    })
+      .then((response) => response.json())
+      .then((roomId) => {
+        this.props.history.push(`/room/${roomId}`);
+      });
+  }
+
   render() {
     const { currentPosition, geoPermisionDenined } = this.state;
     let currentStatusMessage = '';
@@ -74,6 +91,7 @@ class CreateRoom extends React.Component {
           <button
             type="button"
             disabled={!currentPosition}
+            onClick={this.createRoom.bind(this)}
           >
           방만들기
           </button>
