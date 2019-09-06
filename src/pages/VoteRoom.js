@@ -1,6 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 import CategoryItem from 'components/category-item';
+import Counter from 'components/counter';
 import CopyUrlButton from 'components/btn-url-copy';
 import 'style.css';
 
@@ -10,7 +11,6 @@ class VoteRoom extends React.Component {
     this.state = {
       userCount: 0,
       socket: null,
-      count: 10,
       roomStatus: 'wait',
       currentCategory: null,
       categories: [
@@ -81,11 +81,6 @@ class VoteRoom extends React.Component {
       this.setState({
         socket,
       }, () => {
-        this.state.socket.on('countdown', (count) => {
-          this.setState({
-            count,
-          });
-        });
         this.state.socket.on('status', (roomStatus) => {
           this.setState({
             roomStatus,
@@ -106,22 +101,19 @@ class VoteRoom extends React.Component {
   }
 
   render() {
-    const { count, roomStatus } = this.state;
+    const { socket, roomStatus } = this.state;
     let currentState;
 
     if (roomStatus === 'wait') {
       currentState = <p>다른 유저들을 기다리는 중입니다.</p>;
     } else if (roomStatus === 'ready') {
       currentState = (
-        <p>
-          {count}
-          초 후에 투표가 시작됩니다.
-        </p>
+        <Counter socket={socket} />
       );
     } else if (roomStatus === 'vote') {
       currentState = (
         <div>
-          {count}
+          <Counter socket={socket} />
           {this.state.categories.map((category) => (
             <CategoryItem
               key={category.name}
