@@ -26,7 +26,7 @@ class CreateRoom extends React.Component {
       });
     }, {
       // getCurrentPosition options
-      enableHighAccuracy: false,
+      enableHighAccuracy: true,
       maximumAge: 0,
       timeout: 10000,
     });
