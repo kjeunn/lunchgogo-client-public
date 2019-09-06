@@ -2,6 +2,7 @@ import React from 'react';
 import io from 'socket.io-client';
 import CategoryItem from 'components/category-item';
 import Counter from 'components/counter';
+import CopyUrlButton from 'components/btn-url-copy';
 import 'style.css';
 
 class VoteRoom extends React.Component {
@@ -129,9 +130,7 @@ class VoteRoom extends React.Component {
 
     return (
       <div>
-        <button className="btn" data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">
-            Copy to clipboard
-        </button>
+        <CopyUrlButton />
         {currentState}
       </div>
     );
