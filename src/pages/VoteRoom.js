@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import Counter from 'components/counter';
 import Categories from 'components/categories';
 import CopyUrlButton from 'components/btn-url-copy';
+import Result from 'components/result';
 
 class VoteRoom extends React.Component {
   constructor() {
@@ -67,7 +68,7 @@ class VoteRoom extends React.Component {
         </div>
       );
     } else if (roomStatus === 'result') {
-      currentState = <div>투표 완료  식당목록을 출력합니다.</div>;
+      currentState = <Result socket={socket} />;
     }
 
     return (
