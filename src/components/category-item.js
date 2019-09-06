@@ -13,7 +13,8 @@ class CategoryItem extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.currentCategory === this.props.category.name) {
+    const { currentCategory, category } = this.props;
+    if (currentCategory === category) {
       this.textInput.current.style.webkitAnimation = '';
     }
   }
@@ -23,16 +24,16 @@ class CategoryItem extends React.Component {
   }
 
   render() {
-    const { name } = this.props.category;
+    const { category } = this.props;
 
     return (
       <button
         type="button"
         ref={this.textInput}
         className="test"
-        onClick={this.handleClick.bind(this, name)}
+        onClick={this.handleClick.bind(this, category)}
       >
-        {name}
+        {category}
       </button>
     );
   }

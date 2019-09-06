@@ -8,30 +8,14 @@ class Categories extends React.Component {
     this.state = {
       currentCategory: null,
       categories: [
-        {
-          name: 'category1',
-        },
-        {
-          name: 'category2',
-        },
-        {
-          name: 'category3',
-        },
-        {
-          name: 'category4',
-        },
-        {
-          name: 'category5',
-        },
-        {
-          name: 'category6',
-        },
-        {
-          name: 'category7',
-        },
-        {
-          name: 'category8',
-        },
+        '한식',
+        '중국집',
+        '일식',
+        '양식',
+        '분식',
+        '햄버거',
+        '도시락',
+        '아시아음식',
       ],
     };
     this.handleSendCategory = this.handleSendCategory.bind(this);
@@ -65,7 +49,7 @@ class Categories extends React.Component {
     return (
       categories.map((category) => (
         <CategoryItem
-          key={category.name}
+          key={category}
           handleClick={this.handleSendCategory}
           category={category}
           currentCategory={currentCategory}
