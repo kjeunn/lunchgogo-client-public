@@ -1,6 +1,5 @@
 import React from 'react';
 import CategoryItem from 'components/category-item';
-import 'style.css';
 
 class Categories extends React.Component {
   constructor(props) {

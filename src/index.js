@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from 'client/Root';
+import 'assets/css/base.scss';
 
 
 ReactDOM.render(<Root />, document.getElementById('root'));
