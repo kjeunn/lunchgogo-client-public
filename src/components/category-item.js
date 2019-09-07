@@ -3,6 +3,9 @@ import React from 'react';
 class CategoryItem extends React.Component {
   constructor() {
     super();
+    this.state = {
+      count: 0,
+    };
     this.textInput = React.createRef();
   }
 
@@ -10,13 +13,28 @@ class CategoryItem extends React.Component {
     this.textInput.current.addEventListener('webkitAnimationEnd', () => {
       this.textInput.current.style.webkitAnimation = 'none';
     });
+
+    setInterval(() => {
+      if (this.state.count > 0) {
+        this.setState({
+          count: this.state.count - 1,
+        });
+      }
+    }, 1000);
   }
 
   componentDidUpdate() {
     const { currentCategory, category } = this.props;
     if (currentCategory === category) {
       this.textInput.current.style.webkitAnimation = '';
+      this.setState({
+        count: this.state.count + 1,
+      });
     }
+  }
+
+  fire() {
+    return this.state.count > 30 ? 'fire' : '';
   }
 
   handleClick(category) {
@@ -30,7 +48,7 @@ class CategoryItem extends React.Component {
       <button
         type="button"
         ref={this.textInput}
-        className="test"
+        className={`test ${this.fire()}`}
         onClick={this.handleClick.bind(this, category)}
       >
         {category}
