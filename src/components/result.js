@@ -19,15 +19,17 @@ class Result extends React.Component {
   render() {
     const { results } = this.state;
     return (
-      <div>
-        {results.map((result, index) => (
-          <div>
-            <a href={result.place_url} target="_blank">
-              <div>{index + 1}</div>
-              <div>{result.place_name}</div>
-              <div>{result.distance}</div>
-            </a>
-          </div>
+      <div className="result">
+        {results.map((result) => (
+          <a key={result.place_name} href={result.place_url} target="_blank" rel="noreferrer noopener" className="result__item">
+            <div className="result__item-name">
+              {result.place_name}
+            </div>
+            <div className="result__item-distance">
+              {result.distance}
+              미터
+            </div>
+          </a>
         ))}
       </div>
     );

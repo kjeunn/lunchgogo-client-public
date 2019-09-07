@@ -60,7 +60,7 @@ class VoteRoom extends React.Component {
     let currentState;
 
     if (roomStatus === 'wait') {
-      currentState = <p>다른 유저들을 기다리는 중입니다.</p>;
+      currentState = <p className="voteRoom__text">다른 유저들을 기다리는 중입니다.</p>;
     } else if (roomStatus === 'ready') {
       currentState = (
         <Counter socket={socket} />
@@ -77,7 +77,7 @@ class VoteRoom extends React.Component {
     }
 
     return (
-      <div>
+      <div className="voteRoom">
         <CopyUrlButton />
         {currentState}
       </div>

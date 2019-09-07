@@ -19,10 +19,10 @@ class Counter extends React.Component {
   render() {
     const { count } = this.state;
     return (
-      <p>
-        {count}
+      <div className="voteRoom__counter">
+        <strong>{count}</strong>
         초 남았습니다.
-      </p>
+      </div>
     );
   }
 }

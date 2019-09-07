@@ -48,7 +48,7 @@ class CategoryItem extends React.Component {
       <button
         type="button"
         ref={this.textInput}
-        className={`test ${this.fire()}`}
+        className={`category-item ${this.fire()}`}
         onClick={this.handleClick.bind(this, category)}
       >
         {category}
