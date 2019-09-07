@@ -18,7 +18,12 @@ class VoteRoom extends React.Component {
   componentDidMount() {
     this.initSocket().then(() => {
       fetch(`http://localhost:5001/room/${this.props.match.params.id}`)
-        .then((data) => data.json())
+        .then((data) => {
+          if (data.status === 404) {
+            this.props.history.push('/404');
+          }
+          return data.json();
+        })
         .then((data) => {
           this.setState({
             roomStatus: data.status,
