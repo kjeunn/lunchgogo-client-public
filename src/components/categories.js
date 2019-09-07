@@ -46,14 +46,16 @@ class Categories extends React.Component {
   render() {
     const { categories, currentCategory } = this.state;
     return (
-      categories.map((category) => (
-        <CategoryItem
-          key={category}
-          handleClick={this.handleSendCategory}
-          category={category}
-          currentCategory={currentCategory}
-        />
-      ))
+      <div className="test">
+        {categories.map((category) => (
+          <CategoryItem
+            key={category}
+            handleClick={this.handleSendCategory}
+            category={category}
+            currentCategory={currentCategory}
+          />
+        ))}
+      </div>
     );
   }
 }

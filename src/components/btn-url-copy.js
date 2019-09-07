@@ -11,7 +11,7 @@ const urlCopyButton = () => {
   }
 
   return (
-    <Clipboard option-text={getUrl} onSuccess={copySuccess}>
+    <Clipboard className="voteRoom__button" option-text={getUrl} onSuccess={copySuccess}>
           방 주소 복사하기
     </Clipboard>
   );
