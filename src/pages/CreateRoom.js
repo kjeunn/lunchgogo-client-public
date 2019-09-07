@@ -80,10 +80,11 @@ class CreateRoom extends React.Component {
     }
 
     return (
-      <div>
-        <p>{currentStatusMessage}</p>
+      <div className="createRoom">
+        <p className="createRoom__text">{currentStatusMessage}</p>
         <div>
           <button
+            className="createRoom__button"
             type="button"
             disabled={currentPosition || geoPermisionDenined}
             onClick={this.getLocation.bind(this)}
@@ -93,6 +94,7 @@ class CreateRoom extends React.Component {
         </div>
         <div>
           <button
+            className="createRoom__button"
             type="button"
             disabled={!currentPosition}
             onClick={this.createRoom.bind(this)}
