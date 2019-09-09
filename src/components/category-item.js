@@ -26,11 +26,15 @@ class CategoryItem extends React.Component {
   componentDidUpdate() {
     const { currentCategory, category } = this.props;
     if (currentCategory === category) {
-      this.textInput.current.style.webkitAnimation = '';
-      this.setState({
-        count: this.state.count + 1,
-      });
+      this.vote();
     }
+  }
+
+  vote() {
+    this.textInput.current.style.webkitAnimation = '';
+    this.setState({
+      count: this.state.count + 1,
+    });
   }
 
   fire() {
@@ -39,6 +43,7 @@ class CategoryItem extends React.Component {
 
   handleClick(category) {
     this.props.handleClick(category);
+    this.vote();
   }
 
   render() {
