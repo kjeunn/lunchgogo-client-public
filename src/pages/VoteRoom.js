@@ -12,6 +12,7 @@ class VoteRoom extends React.Component {
       userCount: 0,
       socket: null,
       roomStatus: 'wait',
+      results: [],
     };
   }
 
@@ -28,6 +29,7 @@ class VoteRoom extends React.Component {
           this.setState({
             roomStatus: data.status,
             userCount: data.joined_num,
+            results: this.state.results.concat(data.final_result),
           });
         });
     });
@@ -49,13 +51,19 @@ class VoteRoom extends React.Component {
             roomStatus,
           });
         });
+
+        this.state.socket.on('result', (data) => {
+          this.setState({
+            results: this.state.results.concat(data.final_list),
+          });
+        });
         resolve();
       });
     });
   }
 
   render() {
-    const { socket, roomStatus } = this.state;
+    const { socket, roomStatus, results } = this.state;
     const { match } = this.props;
     let currentState;
 
@@ -73,7 +81,7 @@ class VoteRoom extends React.Component {
         </div>
       );
     } else if (roomStatus === 'result') {
-      currentState = <Result socket={socket} />;
+      currentState = <Result results={results} />;
     }
 
     return (
