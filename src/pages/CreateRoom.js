@@ -5,12 +5,12 @@ class CreateRoom extends React.Component {
     super();
     this.state = {
       currentPosition: null,
-      geoPermisionDenined: false,
+      errorMessage: '',
     };
   }
 
   componentDidMount() {
-    this.checkGeolocationPermision();
+    this.getLocation();
   }
 
   getLocation() {
@@ -20,29 +20,32 @@ class CreateRoom extends React.Component {
         currentPosition: position.coords,
       });
     }, (error) => {
-      // error
-      this.setState({
-        geoPermisionDenined: true,
-      });
+      // eslint-disable-next-line default-case
+      switch (error.code) {
+        // PERMISSION_DENIED
+        case 1:
+          this.setState({
+            errorMessage: '위치정보 접근 권한이 거부되었어요.',
+          });
+          break;
+        // POSITION_UNAVAILABLE
+        case 2:
+          this.setState({
+            errorMessage: '위치정보 권한이 허용되었으나 위치를 가져올수 없어요.',
+          });
+          break;
+        // TIMEOUT
+        case 3:
+          this.setState({
+            errorMessage: '위치정보 권한이 허용되었으나 위치를 가져올수 없어요.',
+          });
+          break;
+      }
     }, {
       // getCurrentPosition options
       enableHighAccuracy: true,
       maximumAge: 0,
       timeout: 10000,
-    });
-  }
-
-  checkGeolocationPermision() {
-    // geolocation 권한 여부를 조회한다.
-    navigator.permissions.query({ name: 'geolocation' }).then((permissionStatus) => {
-      // 권한이 이미 부여(granted) 되어 있다면 위치 정보를 세팅한다.
-      if (permissionStatus.state === 'granted') {
-        this.getLocation();
-      } else if (permissionStatus.state === 'denied') {
-        this.setState({
-          geoPermisionDenined: true,
-        });
-      }
     });
   }
 
@@ -68,28 +71,27 @@ class CreateRoom extends React.Component {
   }
 
   render() {
-    const { currentPosition, geoPermisionDenined } = this.state;
+    const { currentPosition, errorMessage } = this.state;
     let currentStatusMessage = '';
 
-    if (geoPermisionDenined) {
-      currentStatusMessage = '현재 위치 정보 접근을 거부 하셨어요. 브라우저 설정에서 차단을 풀어주세요.';
-    } else if (!currentPosition) {
-      currentStatusMessage = '주변 식당을 검색하기 위해 현재 위치 정보가 필요합니다.';
+    if (currentPosition) {
+      currentStatusMessage = '이제 방을 만들 준비가 되었어요.';
     } else {
-      currentStatusMessage = '이제 방을 만들 준비가 되었습니다.';
+      currentStatusMessage = '주변 식당을 찾기 위해 현재 위치를 직접 입력해주세요.';
     }
 
     return (
       <div className="createRoom">
+        <p className="createRoom__text">{errorMessage}</p>
         <p className="createRoom__text">{currentStatusMessage}</p>
         <div>
           <button
             className="createRoom__button"
             type="button"
-            disabled={currentPosition || geoPermisionDenined}
+            disabled={!errorMessage}
             onClick={this.getLocation.bind(this)}
           >
-            { currentPosition ? '위치정보 동의 완료' : ' 위치정보 동의' }
+            { !errorMessage ? '위치정보 동의 완료' : ' 위치정보 동의' }
           </button>
         </div>
         <div>
