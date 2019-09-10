@@ -1,4 +1,5 @@
 import React from 'react';
+import Loading from 'components/loading';
 
 class CreateRoom extends React.Component {
   constructor() {
@@ -6,6 +7,8 @@ class CreateRoom extends React.Component {
     this.state = {
       currentPosition: null,
       errorMessage: '',
+      isLoading: false,
+      loadingMessage: '',
     };
   }
 
@@ -14,12 +17,20 @@ class CreateRoom extends React.Component {
   }
 
   getLocation() {
+    this.setState({
+      isLoading: true,
+      loadingMessage: '위치정보를 가져오는 중이에요.',
+    });
     navigator.geolocation.getCurrentPosition((position) => {
       // success
       this.setState({
+        isLoading: false,
         currentPosition: position.coords,
       });
     }, (error) => {
+      this.setState({
+        isLoading: false,
+      });
       // eslint-disable-next-line default-case
       switch (error.code) {
         // PERMISSION_DENIED
@@ -51,6 +62,10 @@ class CreateRoom extends React.Component {
 
   createRoom() {
     const { currentPosition } = this.state;
+    this.setState({
+      isLoading: true,
+      loadingMessage: '방을 생성하는 중이에요.',
+    });
     fetch('http://localhost:5001/room/create', {
       method: 'POST',
       headers: {
@@ -66,6 +81,9 @@ class CreateRoom extends React.Component {
     })
       .then((response) => response.json())
       .then((roomId) => {
+        this.setState({
+          isLoading: false,
+        });
         this.props.history.push(`/room/${roomId}`);
       }).catch(() => {
         this.props.history.push('/404');
@@ -73,7 +91,9 @@ class CreateRoom extends React.Component {
   }
 
   render() {
-    const { currentPosition, errorMessage } = this.state;
+    const {
+      currentPosition, errorMessage, isLoading, loadingMessage,
+    } = this.state;
     let currentStatusMessage = '';
 
     if (currentPosition) {
@@ -84,6 +104,7 @@ class CreateRoom extends React.Component {
 
     return (
       <div className="createRoom">
+        <Loading message={loadingMessage} isLoading={isLoading} />
         <p className="createRoom__text">{errorMessage}</p>
         <p className="createRoom__text">{currentStatusMessage}</p>
         <div>
