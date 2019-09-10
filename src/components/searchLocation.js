@@ -1,8 +1,10 @@
 import React from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { KAKAO_API_KEY } from 'apiKey';
+import propTypes from 'prop-types';
 
-function SearchLocation(props) {
+
+export default function SearchLocation(props) {
   const handleAddress = (value) => {
     const { address } = value;
     const headers = {
@@ -24,4 +26,6 @@ function SearchLocation(props) {
   );
 }
 
-export default SearchLocation;
+SearchLocation.propTypes = {
+  onComplete: propTypes.func.isRequired,
+};
