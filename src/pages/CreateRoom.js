@@ -67,6 +67,8 @@ class CreateRoom extends React.Component {
       .then((response) => response.json())
       .then((roomId) => {
         this.props.history.push(`/room/${roomId}`);
+      }).catch(() => {
+        this.props.history.push('/404');
       });
   }
 
