@@ -87,7 +87,18 @@ class VoteRoom extends React.Component {
       currentState = <p className="voteRoom__text">다른 유저들을 기다리는 중이에요.</p>;
     } else if (roomStatus === 'ready') {
       currentState = (
-        <Counter socket={socket} />
+        <div>
+          <Counter socket={socket} />
+          <div>
+            <ol>
+              <li>투표가 시작되면 먹고싶은 만큼!</li>
+              <li>원하는 메뉴를 마구마구 눌러주세요!</li>
+              <li>먹고 싶은걸 포기하기엔 아직 너무 이릅니다!!</li>
+              <li>자, 손가락 풀고 준비해주세요!</li>
+              <li>곧 투표가 시작됩니다!!</li>
+            </ol>
+          </div>
+        </div>
       );
     } else if (roomStatus === 'vote') {
       setTimeout(() => {
