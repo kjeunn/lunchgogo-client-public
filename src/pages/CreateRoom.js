@@ -85,6 +85,8 @@ class CreateRoom extends React.Component {
           isLoading: false,
         });
         this.props.history.push(`/room/${roomId}`);
+      }).catch(() => {
+        this.props.history.push('/404');
       });
   }
 

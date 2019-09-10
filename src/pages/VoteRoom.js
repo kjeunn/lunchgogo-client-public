@@ -26,12 +26,7 @@ class VoteRoom extends React.Component {
     });
     this.initSocket().then(() => {
       fetch(`http://localhost:5001/room/${this.props.match.params.id}`)
-        .then((data) => {
-          if (data.status === 404) {
-            this.props.history.push('/404');
-          }
-          return data.json();
-        })
+        .then((data) => data.json())
         .then((data) => {
           this.setState({
             isLoading: false,
@@ -39,6 +34,9 @@ class VoteRoom extends React.Component {
             userCount: data.joined_num,
             results: this.state.results.concat(data.final_result),
           });
+        })
+        .catch(() => {
+          this.props.history.push('/404');
         });
     });
   }
@@ -68,8 +66,8 @@ class VoteRoom extends React.Component {
 
         this.state.socket.on('result', (data) => {
           this.setState({
+            results: this.state.results.concat(data.final_result),
             isLoading: false,
-            results: this.state.results.concat(data.final_list),
           });
         });
         resolve();
