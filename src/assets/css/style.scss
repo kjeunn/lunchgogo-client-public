@@ -130,7 +130,6 @@
 
 .voteRoom {
   width: 100%;
-  padding: 1rem;
   text-align: center;
 
   &__text {
@@ -143,9 +142,7 @@
   &__button {
     @include button;
     width: 180px;
-    margin-bottom: 0.5rem;
     background: none;
-    margin-bottom: 2rem;
   }
 
   &__counter {
@@ -159,6 +156,15 @@
 }
 
 .result {
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    font-size: 1.5rem;
+  }
+
   &__item {
     position: relative;
     border: 1px solid #000;
@@ -180,5 +186,9 @@
       right: 0.5rem;
       font-size: 1rem;
     }
+  }
+
+  &__contents {
+    padding: 1rem;
   }
 }
