@@ -17,6 +17,7 @@ class VoteRoom extends React.Component {
       isLoading: false,
       loadingMessage: '',
       voteMessage: true,
+      vote_result: '',
     };
   }
 
@@ -33,6 +34,7 @@ class VoteRoom extends React.Component {
             isLoading: false,
             roomStatus: data.status,
             userCount: data.joined_num,
+            vote_result: data.vote_result,
             results: this.state.results.concat(data.final_result),
           });
         })
@@ -67,6 +69,7 @@ class VoteRoom extends React.Component {
 
         this.state.socket.on('result', (data) => {
           this.setState({
+            vote_result: data.vote_result,
             results: this.state.results.concat(data.final_result),
             isLoading: false,
           });
@@ -78,7 +81,7 @@ class VoteRoom extends React.Component {
 
   render() {
     const {
-      socket, roomStatus, results, loadingMessage, isLoading, voteMessage,
+      socket, roomStatus, results, loadingMessage, isLoading, vote_result, voteMessage,
     } = this.state;
     const { match } = this.props;
     let currentState;
@@ -117,7 +120,7 @@ class VoteRoom extends React.Component {
         </div>
       );
     } else if (roomStatus === 'result') {
-      currentState = <Result results={results} />;
+      currentState = <Result results={results} vote_result={vote_result} />;
     }
 
     return (

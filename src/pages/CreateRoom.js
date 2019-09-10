@@ -1,5 +1,6 @@
 import React from 'react';
-import Loading from 'components/loading';
+import Loading from '../components/loading';
+import SearchLocation from '../components/searchLocation';
 
 class CreateRoom extends React.Component {
   constructor() {
@@ -60,6 +61,13 @@ class CreateRoom extends React.Component {
     });
   }
 
+  getUserLocation = (location) => {
+    this.setState({
+      currentPosition: location,
+      errorMessage: '',
+    });
+  }
+
   createRoom() {
     const { currentPosition } = this.state;
     this.setState({
@@ -95,11 +103,14 @@ class CreateRoom extends React.Component {
       currentPosition, errorMessage, isLoading, loadingMessage,
     } = this.state;
     let currentStatusMessage = '';
+    let locationInput = false;
 
     if (currentPosition) {
       currentStatusMessage = '이제 방을 만들 준비가 되었어요.';
+      locationInput = false;
     } else {
       currentStatusMessage = '주변 식당을 찾기 위해 현재 위치를 직접 입력해주세요.';
+      locationInput = true;
     }
 
     return (
@@ -107,6 +118,9 @@ class CreateRoom extends React.Component {
         <Loading message={loadingMessage} isLoading={isLoading} />
         <p className="createRoom__text">{errorMessage}</p>
         <p className="createRoom__text">{currentStatusMessage}</p>
+        <div style={{ display: locationInput ? 'block' : 'none' }}>
+          <SearchLocation onComplete={this.getUserLocation} />
+        </div>
         <div>
           <button
             className="createRoom__button"

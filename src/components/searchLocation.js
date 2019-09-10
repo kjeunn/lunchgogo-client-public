@@ -1,7 +1,7 @@
 import React from 'react';
 import DaumPostcode from 'react-daum-postcode';
-import { KAKAO_API_KEY } from 'apiKey';
 import propTypes from 'prop-types';
+import KAKAO_API_KEY from '../apiKey';
 
 
 export default function SearchLocation(props) {
@@ -16,7 +16,7 @@ export default function SearchLocation(props) {
       .then((data) => {
         const currentLatLng = { longitude: data.documents[0].address.x, latitude: data.documents[0].address.y };
         props.onComplete(currentLatLng);
-      });
+      }).catch((err) => err);
   };
 
   return (
