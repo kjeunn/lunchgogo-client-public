@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from 'assets/images/logo.png';
+import Favicon from 'react-favicon';
+
+import logo from 'assets/images/lunchgogo-logo.png';
+import favicon from 'assets/images/lunchgogo-favicon.png';
 
 const Home = () => (
   <div className="home">
+    <Favicon url={favicon} />
     <h1 className="home__logo">
       <img src={logo} alt="런치고고" />
     </h1>
