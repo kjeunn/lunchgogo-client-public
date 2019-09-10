@@ -16,6 +16,7 @@ class VoteRoom extends React.Component {
       results: [],
       isLoading: false,
       loadingMessage: '',
+      voteMessage: true,
     };
   }
 
@@ -77,7 +78,7 @@ class VoteRoom extends React.Component {
 
   render() {
     const {
-      socket, roomStatus, results, loadingMessage, isLoading,
+      socket, roomStatus, results, loadingMessage, isLoading, voteMessage,
     } = this.state;
     const { match } = this.props;
     let currentState;
@@ -89,9 +90,18 @@ class VoteRoom extends React.Component {
         <Counter socket={socket} />
       );
     } else if (roomStatus === 'vote') {
+      setTimeout(() => {
+        this.setState({
+          voteMessage: false,
+        });
+      }, 7000);
+
       currentState = (
         <div>
           <Counter socket={socket} />
+          <div>
+            {voteMessage ? '투표 스타트!!' : '투표시간이 얼마 남지 않았어요!!'}
+          </div>
           <Categories socket={socket} match={match} />
         </div>
       );
