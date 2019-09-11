@@ -1,7 +1,7 @@
 import React from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import propTypes from 'prop-types';
-import KAKAO_API_KEY from '../apiKey';
+import { KAKAO_API_KEY } from '../apiKey';
 
 
 export default function SearchLocation(props) {
@@ -10,6 +10,7 @@ export default function SearchLocation(props) {
     const headers = {
       Authorization: KAKAO_API_KEY,
     };
+    props.onStart();
     fetch(`https://dapi.kakao.com/v2/local/search/address.json?query=${address}`, {
       headers,
     }).then((res) => res.json())
@@ -20,12 +21,13 @@ export default function SearchLocation(props) {
   };
 
   return (
-    <div className="App">
+    <div className="search-location">
       <DaumPostcode onComplete={handleAddress} />
     </div>
   );
 }
 
 SearchLocation.propTypes = {
+  onStart: propTypes.func.isRequired,
   onComplete: propTypes.func.isRequired,
 };

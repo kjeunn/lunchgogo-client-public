@@ -6,15 +6,13 @@ import {
 
 function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/room/create" component={CreateRoom} />
-        <Route path="/room/:id" component={VoteRoom} />
-        <Route path="/404" component={Page404} />
-        <Redirect to="/404" />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/room/create" component={CreateRoom} />
+      <Route path="/room/:id" component={VoteRoom} />
+      <Route path="/404" component={Page404} />
+      <Redirect to="/404" />
+    </Switch>
   );
 }
 
