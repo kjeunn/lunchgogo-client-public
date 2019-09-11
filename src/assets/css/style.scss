@@ -1,3 +1,36 @@
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  max-width: 640px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.container {
+  height: 100%;
+}
+
+.contents {
+  display: flex;
+  height: calc(100% - 3rem);
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation {
+  height: 3rem;
+  line-height: 3rem;
+  padding: 0 1rem;
+  background-color: #f89b3a;
+
+  a {
+    color: #fff;
+  }
+}
+
 .loading {
   position: fixed;
   top: 0;
@@ -6,7 +39,7 @@
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 1);
   z-index: 100;
 
   &__content {
@@ -17,7 +50,7 @@
     text-align: center;
 
     .css-2cur05 {
-      margin-left: 2.5rem;
+      margin-left: 23%;
     }
   }
 
@@ -32,33 +65,43 @@
 .test {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 4rem 4rem 4rem 4rem;
+  grid-template: repeat(4, 1fr) / repeat(2, 1fr);
+  grid-gap: 1em;
 }
 
 .category-item {
   position: relative;
   height: 4rem;
-  font-size: 1.3rem;
-  font-weight: 100;
-  border: 1px solid #000;
+  font-size: 1.2rem;
+  border: 0;
   animation: fire 0.1s;
-  border-bottom: 10px solid #000;
+  border-bottom: 4px solid #725f58;
   outline: 0;
+  top: 0;
+  border-radius: 4px;
+  background-color: #f89b3a;
   touch-action: manipulation;
+  transition: all 0.3s;
 }
 
 @keyframes fire {
   from {
-    top: 9px;
-    border-bottom: 1px solid #000;
-  }
-  to {
-    border-bottom: 1px solid #000;
+    top: 4px;
+    border-bottom: 1px solid #725f58;
   }
 }
 
 .fire {
   background: red;
+  color: #fff;
+
+  &:before {
+    content: '🔥🔥';
+  }
+
+  &:after {
+    content: '🔥🔥';
+  }
 }
 
 @mixin button {
@@ -67,7 +110,6 @@
   padding: 0 1rem;
   text-decoration: none;
   line-height: 3rem;
-  height: 3rem;
   border-radius: 4px;
   font-size: 1.2rem;
   font-weight: 500;
@@ -86,17 +128,15 @@
 }
 
 .home {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  padding: 0 1rem;
-  transform: translate(-50%, -50%);
+  display: flex;
+  height: calc(100% - 3rem);
+  align-items: center;
+  justify-content: center;
   text-align: center;
 
   &__logo {
     font-size: 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   &__button {
@@ -105,58 +145,159 @@
 }
 
 .createRoom {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  display: flex;
+  height: calc(100% - 3rem);
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 0 1rem;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  padding: 1rem;
+
+  &__inner {
+    width: 100%;
+  }
 
   &__text {
-    font-size: 2rem;
-    font-weight: 100;
-    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
     word-break: keep-all;
   }
 
   &__button {
     @include button;
-    width: 200px;
+    width: 100%;
     margin-bottom: 0.5rem;
     background: none;
   }
 }
 
+.search-location {
+  border: 1px solid #000;
+  margin-bottom: 1rem;
+}
+
+.voteRoom--result {
+  display: block !important;
+  padding: 0 !important;
+}
+
 .voteRoom {
+  display: flex;
+  height: calc(100% - 3rem);
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  text-align: center;
+  padding: 1rem;
+
+  &__inner {
+    width: 100%;
+  }
+
+  &__button-wrapper {
+    position: absolute;
+    top: calc(0.5rem - 1px);
+    right: 0.5rem;
+    z-index: 10;
+  }
+
+  &__button-copied {
+    position: absolute;
+    top: 2.5rem;
+    right: 0;
+    display: inline-block;
+    text-align: right;
+    padding: 0.5rem;
+    background: #3b9af0;
+    color: #fff;
+    font-size: 0.8rem;
+    border-radius: 4px;
+
+    &:after {
+      position: absolute;
+      top: -4px;
+      left: 0.5rem;
+      content: '';
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid #3b9af0;
+    }
+  }
 
   &__text {
-    font-size: 2rem;
-    font-weight: 100;
-    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
     word-break: keep-all;
+
+    &--info {
+      border: 1px solid #f89b3a;
+      padding: 1rem;
+      font-size: 1.2rem;
+      line-height: 1.3;
+      color: #f89b3a;
+      border-radius: 4px;
+    }
+  }
+
+  &__message-wrapper {
+  }
+
+  &__caster {
+    font-size: 3rem;
+  }
+
+  &__message {
+    position: relative;
+    top: -0.5rem;
+    display: inline-block;
+    margin: 0 0 0.5rem 0.75rem;
+    padding: 1rem;
+    border: 2px solid #725f58;
+    border-radius: 10px;
+    color: #725f58;
+
+    &:after {
+      position: absolute;
+      top: 0.5rem;
+      left: -8px;
+      content: '';
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 8px solid #725f58;
+    }
   }
 
   &__button {
     @include button;
-    width: 180px;
+    border-color: #fff;
+    border-width: 1px;
+    color: #fff;
+    line-height: 2rem;
+    font-size: 1rem;
     background: none;
   }
 
   &__counter {
-    margin-bottom: 2rem;
-    strong {
-      font-size: 3rem;
-    }
-    font-size: 1.2rem;
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 2rem;
     font-weight: 100;
+
+    strong {
+      font-size: 2.5rem;
+      margin-right: 0.25rem;
+    }
   }
 }
 
 .result {
   &__title {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -167,28 +308,58 @@
 
   &__item {
     position: relative;
-    border: 1px solid #000;
+    border: 2px solid #f89b3a;
     display: block;
     margin-bottom: 0.5rem;
     padding: 0.5rem;
     text-decoration: none;
-    color: #000;
+    color: #f89b3a;
     text-align: left;
+    border-radius: 4px;
 
     &-name {
-      font-size: 1.4rem;
-      font-weight: 100;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
     }
 
     &-distance {
+      font-size: 0.7rem;
+    }
+
+    &:after {
+      content: '>';
       position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      font-size: 1rem;
+      top: 50%;
+      right: 0.75rem;
+      font-size: 1.2rem;
+      transform: translate(0, -50%);
     }
   }
 
   &__contents {
     padding: 1rem;
+  }
+}
+
+.page404 {
+  display: flex;
+  height: calc(100% - 3rem);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &__title {
+  }
+
+  &__text {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    padding: 0 1rem;
+    word-break: keep-all;
+    line-height: 1.4;
+  }
+
+  &__button {
+    @include button;
   }
 }

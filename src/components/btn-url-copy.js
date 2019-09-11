@@ -25,12 +25,14 @@ class urlCopyButton extends React.Component {
   render() {
     const { showShortly } = this.state;
     return (
-      <div>
+      <div className="voteRoom__button-wrapper">
         <Clipboard className="voteRoom__button" option-text={this.getUrl} onSuccess={this.copySuccess}>
-              방 주소 복사하기
+          <i className="far fa-copy" />
+          {' '}
+          방 주소 복사하기
         </Clipboard>
-        <div style={{ display: showShortly ? 'block' : 'none' }}>
-          {'주소복사 완료!'}
+        <div className="voteRoom__button-copied" style={{ display: showShortly ? 'inline-block' : 'none' }}>
+          {'복사완료!'}
         </div>
       </div>
     );

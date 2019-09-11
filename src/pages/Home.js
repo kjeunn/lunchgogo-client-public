@@ -7,11 +7,13 @@ import favicon from 'assets/images/lunchgogo-favicon.png';
 
 const Home = () => (
   <div className="home">
-    <Favicon url={favicon} />
-    <h1 className="home__logo">
-      <img src={logo} alt="런치고고" />
-    </h1>
-    <Link className="home__button" to="/room/create">시작하기</Link>
+    <div>
+      <Favicon url={favicon} />
+      <h1 className="home__logo">
+        <img src={logo} alt="런치고고" />
+      </h1>
+      <Link className="home__button" to="/room/create">시작하기</Link>
+    </div>
   </div>
 );
 

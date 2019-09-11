@@ -1,12 +1,16 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import {
+  Redirect, Route, Switch, withRouter,
+} from 'react-router-dom';
 import {
   Home, CreateRoom, VoteRoom, Page404,
 } from 'pages';
+import Navibar from 'components/navibar';
 
 function App() {
   return (
-    <div>
+    <div className="container">
+      <Navibar />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/room/create" component={CreateRoom} />
