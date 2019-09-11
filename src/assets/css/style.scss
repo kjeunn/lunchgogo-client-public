@@ -65,33 +65,43 @@ body {
 .test {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 4rem 4rem 4rem 4rem;
+  grid-template: repeat(4, 1fr) / repeat(2, 1fr);
+  grid-gap: 1em;
 }
 
 .category-item {
   position: relative;
   height: 4rem;
-  font-size: 1.3rem;
-  font-weight: 100;
-  border: 1px solid #000;
+  font-size: 1.2rem;
+  border: 0;
   animation: fire 0.1s;
-  border-bottom: 10px solid #000;
+  border-bottom: 4px solid #725f58;
   outline: 0;
+  top: 0;
+  border-radius: 4px;
+  background-color: #f89b3a;
   touch-action: manipulation;
+  transition: all 0.3s;
 }
 
 @keyframes fire {
   from {
-    top: 9px;
-    border-bottom: 1px solid #000;
-  }
-  to {
-    border-bottom: 1px solid #000;
+    top: 4px;
+    border-bottom: 1px solid #725f58;
   }
 }
 
 .fire {
   background: red;
+  color: #fff;
+
+  &:before {
+    content: '🔥🔥';
+  }
+
+  &:after {
+    content: '🔥🔥';
+  }
 }
 
 @mixin button {
@@ -328,5 +338,28 @@ body {
 
   &__contents {
     padding: 1rem;
+  }
+}
+
+.page404 {
+  display: flex;
+  height: calc(100% - 3rem);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &__title {
+  }
+
+  &__text {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    padding: 0 1rem;
+    word-break: keep-all;
+    line-height: 1.4;
+  }
+
+  &__button {
+    @include button;
   }
 }
