@@ -151,23 +151,25 @@ class CreateRoom extends React.Component {
 
     return (
       <div className="createRoom">
-        <Loading message={loadingMessage} isLoading={isLoading} />
-        {currentAddressMessage}
-        <p className="createRoom__text">{errorMessage}</p>
-        <p className="createRoom__text">{currentStatusMessage}</p>
+        <div className="createRoom__inner">
+          <Loading message={loadingMessage} isLoading={isLoading} />
+          {currentAddressMessage}
+          <p className="createRoom__text">{errorMessage}</p>
+          <p className="createRoom__text">{currentStatusMessage}</p>
 
-        <div style={{ display: !successGetLocation ? 'block' : 'none' }}>
-          <SearchLocation onStart={this.test} onComplete={this.getUserLocation} />
+          <div style={{ display: !successGetLocation ? 'block' : 'none' }}>
+            <SearchLocation onStart={this.test} onComplete={this.getUserLocation} />
+          </div>
+
+          <button
+            className="createRoom__button"
+            type="button"
+            disabled={!currentPosition}
+            onClick={this.createRoom.bind(this)}
+          >
+            { locationInput ? '주소를 먼저 선택해주세요.' : ' 방만들기' }
+          </button>
         </div>
-
-        <button
-          className="createRoom__button"
-          type="button"
-          disabled={!currentPosition}
-          onClick={this.createRoom.bind(this)}
-        >
-          { locationInput ? '주소를 먼저 선택해주세요.' : ' 방만들기' }
-        </button>
       </div>
     );
   }

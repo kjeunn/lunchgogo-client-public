@@ -5,7 +5,7 @@ const Result = ({ results, vote_result }) => {
   const sectionStyle = {
     width: '100%',
     height: '200px',
-    backgroundImage: `url(${require(`assets/images/${vote_result}.jpg`)})`,
+    background: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${require(`assets/images/${vote_result}.jpg`)})`,
     backgroundSize: 'cover',
   };
 

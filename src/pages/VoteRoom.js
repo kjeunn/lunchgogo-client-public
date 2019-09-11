@@ -86,21 +86,29 @@ class VoteRoom extends React.Component {
     const { match } = this.props;
     let currentState;
 
+    const infoMessage = (
+      <div className="voteRoom__text voteRoom__text--info">
+        <ol>
+          <li>투표가 시작되면 먹고싶은 만큼</li>
+          <li>원하는 메뉴를 마구마구 눌러주세요!</li>
+          <li>자, 손가락 풀고 준비해주세요</li>
+          <li>곧 투표가 시작됩니다!</li>
+        </ol>
+      </div>
+    );
+
     if (roomStatus === 'wait') {
-      currentState = <p className="voteRoom__text">다른 유저들을 기다리는 중이에요.</p>;
+      currentState = (
+        <div>
+          <p className="voteRoom__text">다른 유저들을 기다리는 중이에요.</p>
+          {infoMessage}
+        </div>
+      );
     } else if (roomStatus === 'ready') {
       currentState = (
         <div>
+          {infoMessage}
           <Counter socket={socket} />
-          <div>
-            <ol>
-              <li>투표가 시작되면 먹고싶은 만큼!</li>
-              <li>원하는 메뉴를 마구마구 눌러주세요!</li>
-              <li>먹고 싶은걸 포기하기엔 아직 너무 이릅니다!!</li>
-              <li>자, 손가락 풀고 준비해주세요!</li>
-              <li>곧 투표가 시작됩니다!!</li>
-            </ol>
-          </div>
         </div>
       );
     } else if (roomStatus === 'vote') {
@@ -113,21 +121,26 @@ class VoteRoom extends React.Component {
       currentState = (
         <div>
           <Counter socket={socket} />
-          <div>
-            {voteMessage ? '투표 스타트!!' : '투표시간이 얼마 남지 않았어요!!'}
+          <div className="voteRoom__message-wrapper">
+            <span className="voteRoom__caster">💁🏼‍♀️</span>
+            <div className="voteRoom__message">
+              {voteMessage ? '투표 스타트!!' : '투표시간이 얼마 남지 않았어요!!'}
+            </div>
           </div>
           <Categories socket={socket} match={match} />
         </div>
       );
-    } else if (roomStatus === 'result') {
+    } else if (roomStatus === 'result' && vote_result) {
       currentState = <Result results={results} vote_result={vote_result} />;
     }
 
     return (
-      <div className="voteRoom">
-        <Loading message={loadingMessage} isLoading={isLoading} />
-        <CopyUrlButton />
-        {currentState}
+      <div className={`voteRoom ${roomStatus === 'result' ? 'voteRoom--result' : ''}`}>
+        <div className="voteRoom__inner">
+          <Loading message={loadingMessage} isLoading={isLoading} />
+          <CopyUrlButton />
+          {currentState}
+        </div>
       </div>
     );
   }
